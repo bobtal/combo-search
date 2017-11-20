@@ -22,7 +22,7 @@ public class Permutation {
                 searchCombo.append(" ").append(data[j]);
             }
             // After the searchCombo is constructed, add it (as a single String) to the searchCombos collection
-            searchCombos.add(searchCombo.toString());
+            searchCombos.add(searchCombo.toString().trim());
             return;
         }
 
