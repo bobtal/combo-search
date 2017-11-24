@@ -11,14 +11,17 @@ public class Permutation {
     index  ---> Current index in data[]
     comboSize ---> Size of a combination to be printed */
     private static void combinationUtil(String[] arr, String[] data, int start,
-                                        int end, int index, int comboSize, List<String> searchCombos)
+                                        int end, int index, int comboSize, List<String> searchCombos, String generalSearchTerm)
     {
         // Build a searchCombo from scratch by just adding the required number
         // of search terms in a single space separated String
         if (index == comboSize)
         {
             StringBuilder searchCombo = new StringBuilder();
-            for (int j=0; j<comboSize; j++) {
+            if (!generalSearchTerm.trim().equals("")) {
+                searchCombo.append(generalSearchTerm);
+            }
+            for (int j = 0; j < comboSize; j++) {
                 searchCombo.append(" ").append(data[j]);
             }
             // After the searchCombo is constructed, add it (as a single String) to the searchCombos collection
@@ -30,23 +33,23 @@ public class Permutation {
         // "end-i+1 >= comboSize-index" makes sure that including one element
         // at index will make a combination with remaining elements
         // at remaining positions
-        for (int i=start; i<=end && end-i+1 >= comboSize-index; i++)
+        for (int i = start; i <= end && end - i + 1 >= comboSize - index; i++)
         {
             data[index] = arr[i];
-            combinationUtil(arr, data, i+1, end, index+1, comboSize, searchCombos);
+            combinationUtil(arr, data, i + 1, end, index + 1, comboSize, searchCombos, generalSearchTerm);
         }
     }
 
     // The main function that gets all combinations of size comboSize
     // in arr[] of size n and stores them as a single String in searchCombos.
     // This function mainly uses combinationUtil()
-    public static void getCombination(String[] arr, int n, int comboSize, List<String> searchCombos)
+    public static void getCombination(String[] arr, int n, int comboSize, List<String> searchCombos, String generalSearchTerm)
     {
         // A temporary array to store all combination one by one
         String data[] = new String[comboSize];
 
         // Print all combination using temporary array 'data[]'
-        combinationUtil(arr, data, 0, n-1, 0, comboSize, searchCombos);
+        combinationUtil(arr, data, 0, n - 1, 0, comboSize, searchCombos, generalSearchTerm);
     }
 
     /* original code taken from geeksforgeeks.org, contributed by Devesh Agrawal */

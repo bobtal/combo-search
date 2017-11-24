@@ -8,10 +8,12 @@
     <title>Combo Search</title>
 </head>
 <body>
-<h3>Enter search terms separated by commas:</h3>
 
 <form action="/search" method="post">
-    <input type="text" placeholder="Enter comma separated search terms here:" name="searchtermscsv">
+    <h3>Enter search terms separated by commas:</h3>
+    <input type="text" placeholder="Enter comma separated search terms here:" name="searchtermscsv" size="100%">
+    <h3>Enter a general search term to be included in each search combo:</h3>
+    <input type="text" placeholder="Enter a search term to be added to each search combo" name="generalsearchterm">
     <button>Generate searches</button>
 </form>
 

@@ -17,24 +17,22 @@ public class Main {
         }, new HandlebarsTemplateEngine());
 
         post("/search", (req, res) -> {
+            // get query params
             String[] searchTerms = req.queryParams("searchtermscsv").split(",");
+            String generalSearchTerm = req.queryParams("generalsearchterm");
+
+            // trim each search term
             int length = searchTerms.length;
             for (int i = 0; i < length; i++) {
                 searchTerms[i] = searchTerms[i].trim();
             }
+
             Map<String, Object> model = new HashMap<>();
 
-            // create search combos
+            // create search combos list and add to it all search combos with two search terms and more
             List<String> searchCombos = new LinkedList<>();
-            int numCombos = 0;
-            for (int i = 1; i <= length; i++) {
-                numCombos +=
-                        (MathHelper.factorial(length) /
-                                (MathHelper.factorial(i) * MathHelper.factorial(length - i)));
-            }
-
-            for (int i = 1; i <= searchTerms.length; i++) {
-                Permutation.getCombination(searchTerms, searchTerms.length, i, searchCombos);
+            for (int i = 2; i <= searchTerms.length; i++) {
+                Permutation.getCombination(searchTerms, searchTerms.length, i, searchCombos, generalSearchTerm);
             }
             model.put("searchCombos", searchCombos);
 
